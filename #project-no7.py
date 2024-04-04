@@ -1,26 +1,26 @@
-from scipy.integrate import solve_ivp
-import matplotlib.pyplot as plt 
-# differential equation definition as a function
+# Import necessary libraries
+import numpy as np
+from scipy.integrate import odeint
+import matplotlib.pyplot as plt
 
-def  diff_eq(t,y):
+# Define the function that represents the first-order differential equation
+def model(y, t):
+    dydt = -y  # Example: dy/dt = -y
+    return dydt
 
-        dydt = -2 * y
-        return dydt
-# preliminary conditions definition 
+# Define the initial condition
+y0 = 1
 
-initial_condition = [1]  # y(0)=1 
+# Define the time points where you want to solve the differential equation
+t = np.linspace(0, 5, 100)  # Time points from 0 to 5
 
-#differential solution (using solve_ivp)
-solution=solve_ivp(diff_eq, [0,5], initial_condition)
-#anwser 
-print("solution for y(t);",solution.y)
+# Solve the differential equation using odeint
+y = odeint(model, y0, t)
 
-#charts
-plt.figure()
-plt.plot(solution.t,solution.y[0],label='y(t)')
-plt.xlabel('t')
-plt.ylabel('y')
-plt.title('solution of the differential Equation')
-plt.legend()
-plt.grid(True)
+# Plot the solution
+plt.plot(t, y)
+plt.xlabel('Time')
+plt.ylabel('y(t)')
+plt.title('Solution of the First-Order Differential Equation')
+plt.grid()
 plt.show()
